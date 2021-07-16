@@ -78,6 +78,9 @@ class FontOptionModel extends ChangeNotifier {
   // Set new text color
   void pickColor(Color value) => textStyleModel.editTextColor(value);
 
+  // Set text wight
+  void editWeight(FontWeight value) => textStyleModel.editFontWeight(value);
+  
   void changeFontOptionStatus(FontOptionStatus value) {
     status = value == FontOptionStatus.fontFamily
         ? FontOptionStatus.colorPalette
@@ -85,4 +88,6 @@ class FontOptionModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+
 }

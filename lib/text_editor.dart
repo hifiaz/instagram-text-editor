@@ -6,8 +6,9 @@ import 'package:text_editor/src/font_option_model.dart';
 import 'package:text_editor/src/text_style_model.dart';
 import 'package:text_editor/src/widget/color_palette.dart';
 import 'package:text_editor/src/widget/font_family.dart';
-import 'package:text_editor/src/widget/font_size.dart';
 import 'package:text_editor/src/widget/font_option_switch.dart';
+import 'package:text_editor/src/widget/font_size.dart';
+import 'package:text_editor/src/widget/font_weight.dart';
 import 'package:text_editor/src/widget/text_alignment.dart';
 
 /// Instagram like text editor
@@ -20,7 +21,7 @@ class TextEditor extends StatefulWidget {
   final List<String> fonts;
 
   /// After edit process completed, [onEditCompleted] callback will be called.
-  final void Function(TextStyle, TextAlign, String) onEditCompleted;
+  final void Function(TextStyle, TextAlign, String, FontWeight) onEditCompleted;
 
   /// [onTextAlignChanged] will be called after [textAlingment] prop has changed
   final ValueChanged<TextAlign>? onTextAlignChanged;
@@ -36,6 +37,9 @@ class TextEditor extends StatefulWidget {
 
   /// The text style
   final TextStyle? textStyle;
+
+  /// The text weight
+  final FontWeight? textWeight;
 
   /// Widget's background color
   final Color? backgroundColor;
@@ -65,6 +69,7 @@ class TextEditor extends StatefulWidget {
     this.backgroundColor,
     this.text = '',
     this.textStyle,
+    this.textWeight = FontWeight.normal,
     this.textAlingment,
     this.minFontSize = 1,
     this.maxFontSize = 100,
@@ -88,6 +93,7 @@ class _TextEditorState extends State<TextEditor> {
     _textStyleModel = TextStyleModel(
       widget.text,
       textStyle: widget.textStyle,
+      textWeight: widget.textWeight,
       textAlign: widget.textAlingment,
     );
     _fontOptionModel = FontOptionModel(
@@ -108,6 +114,7 @@ class _TextEditorState extends State<TextEditor> {
       _textStyleModel.textStyle!,
       _textStyleModel.textAlign!,
       _textStyleModel.text,
+      _textStyleModel.textWeight!,
     );
   }
 
@@ -131,6 +138,13 @@ class _TextEditorState extends State<TextEditor> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Text('${widget.decoration?.weight}'),
+                      // Text('${widget.decoration?.alignment}'),
+                      TextWeight(
+                        bold: widget.decoration?.weight?.bold,
+                        normal: widget.decoration?.weight?.normal,
+                      ),
+                      SizedBox(width: 20),
                       TextAlignment(
                         left: widget.decoration?.alignment?.left,
                         center: widget.decoration?.alignment?.center,
@@ -222,6 +236,19 @@ class AlignmentDecoration {
   AlignmentDecoration({this.left, this.center, this.right});
 }
 
+/// Decoration to customize text weight widgets' design.
+///
+/// Pass your custom widget to `bold` and `normal` to customize their design
+class WeightDecoration {
+  /// Bold widget
+  final Widget? bold;
+
+  /// Normal widget
+  final Widget? normal;
+
+  WeightDecoration({this.bold, this.normal});
+}
+
 /// Decoration to customize the editor
 ///
 /// By using this class, you can customize the text editor's design
@@ -229,6 +256,7 @@ class EditorDecoration {
   /// Done button widget
   final Widget? doneButton;
   final AlignmentDecoration? alignment;
+  final WeightDecoration? weight;
 
   /// Font family switch widget
   final Widget? fontFamily;
@@ -239,6 +267,7 @@ class EditorDecoration {
   EditorDecoration({
     this.doneButton,
     this.alignment,
+    this.weight,
     this.fontFamily,
     this.colorPalette,
   });

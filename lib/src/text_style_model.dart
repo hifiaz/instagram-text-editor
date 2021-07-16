@@ -5,14 +5,12 @@ class TextStyleModel extends ChangeNotifier {
   String text;
   TextStyle? textStyle;
   TextAlign? textAlign;
+  FontWeight? textWeight;
 
-  TextStyleModel(
-    this.text, {
-    this.textAlign,
-    this.textStyle,
-  }) {
+  TextStyleModel(this.text, {this.textAlign, this.textStyle, this.textWeight}) {
     textStyle = textStyle ?? TextStyle(fontSize: 10);
     textAlign = textAlign ?? TextAlign.center;
+    textWeight = textWeight ?? FontWeight.normal;
   }
 
   void editTextAlinment(TextAlign value) {
@@ -30,6 +28,12 @@ class TextStyleModel extends ChangeNotifier {
   void editFontSize(double value) {
     this.textStyle = this.textStyle!.copyWith(fontSize: value);
 
+    notifyListeners();
+  }
+
+  void editFontWeight(FontWeight value) {
+    this.textWeight = value;
+    this.textStyle = this.textStyle!.copyWith(fontWeight: value);
     notifyListeners();
   }
 

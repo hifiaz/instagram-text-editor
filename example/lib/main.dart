@@ -51,12 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
   TextStyle _textStyle = TextStyle(
     fontSize: 50,
     color: Colors.white,
+    fontWeight: FontWeight.normal,
     fontFamily: 'Billabong',
   );
   String _text = 'Sample Text';
   TextAlign _textAlign = TextAlign.center;
+  FontWeight _fontWeight = FontWeight.normal;
 
-  void _tapHandler(text, textStyle, textAlign) {
+  void _tapHandler(text, textStyle, textAlign, fontWeight) {
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
@@ -76,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fonts: fonts,
                   text: text,
                   textStyle: textStyle,
+                  textWeight: fontWeight,
                   textAlingment: textAlign,
                   minFontSize: 10,
                   // paletteColors: [
@@ -107,13 +110,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     ),
                   //   ),
                   // ),
-                  onEditCompleted: (style, align, text) {
+                  onEditCompleted: (style, align, text, weight) {
                     setState(() {
                       _text = text;
                       _textStyle = style;
                       _textAlign = align;
+                      _fontWeight = weight;
                     });
-                    Navigator.pop(context);
+                    Navigator.pop(_);
                   },
                 ),
               ),
@@ -133,10 +137,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Stack(
             children: [
-              Image.asset('assets/story.png'),
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/story.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
               Center(
                 child: GestureDetector(
-                  onTap: () => _tapHandler(_text, _textStyle, _textAlign),
+                  onTap: () =>
+                      _tapHandler(_text, _textStyle, _textAlign, _fontWeight),
                   child: Text(
                     _text,
                     style: _textStyle,
