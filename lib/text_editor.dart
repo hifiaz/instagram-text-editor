@@ -10,6 +10,7 @@ import 'package:text_editor/src/widget/font_option_switch.dart';
 import 'package:text_editor/src/widget/font_size.dart';
 import 'package:text_editor/src/widget/font_weight.dart';
 import 'package:text_editor/src/widget/text_alignment.dart';
+import 'package:text_editor/src/widget/text_background_color.dart';
 
 /// Instagram like text editor
 /// A flutter widget that edit text style and text alignment
@@ -101,7 +102,7 @@ class _TextEditorState extends State<TextEditor> {
       widget.fonts,
       colors: widget.paletteColors,
     );
-
+    
     // Initialize decorator
     _doneButton = widget.decoration?.doneButton ??
         Text('Done', style: TextStyle(color: Colors.white));
@@ -124,6 +125,7 @@ class _TextEditorState extends State<TextEditor> {
       providers: [
         ChangeNotifierProvider(create: (context) => _textStyleModel),
         ChangeNotifierProvider(create: (context) => _fontOptionModel),
+        // ChangeNotifierProvider(create: (context) => _fontBackgroundModel),
       ],
       child: Container(
         padding: EdgeInsets.only(right: 10, left: 10),
@@ -138,8 +140,6 @@ class _TextEditorState extends State<TextEditor> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Text('${widget.decoration?.weight}'),
-                      // Text('${widget.decoration?.alignment}'),
                       TextWeight(
                         bold: widget.decoration?.weight?.bold,
                         normal: widget.decoration?.weight?.normal,
@@ -155,9 +155,12 @@ class _TextEditorState extends State<TextEditor> {
                         fontFamilySwitch: widget.decoration?.fontFamily,
                         colorPaletteSwitch: widget.decoration?.colorPalette,
                       ),
-                      // TODO: Add text background color
-                      // SizedBox(width: 20),
-                      // TextBackgroundColor(),
+                      SizedBox(width: 20),
+                      TextBackgroundColor()
+                      // TextOptionBackground(
+                      //   // fontFamilySwitch: widget.decoration?.fontFamily,
+                      //   colorPaletteSwitch: widget.decoration?.colorPalette,
+                      // ),
                     ],
                   ),
                 ),

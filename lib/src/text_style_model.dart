@@ -6,11 +6,14 @@ class TextStyleModel extends ChangeNotifier {
   TextStyle? textStyle;
   TextAlign? textAlign;
   FontWeight? textWeight;
+  int? textBackground;
 
-  TextStyleModel(this.text, {this.textAlign, this.textStyle, this.textWeight}) {
+  TextStyleModel(this.text,
+      {this.textAlign, this.textStyle, this.textWeight, this.textBackground}) {
     textStyle = textStyle ?? TextStyle(fontSize: 10);
     textAlign = textAlign ?? TextAlign.center;
     textWeight = textWeight ?? FontWeight.normal;
+    textBackground = 0;
   }
 
   void editTextAlinment(TextAlign value) {
@@ -34,6 +37,16 @@ class TextStyleModel extends ChangeNotifier {
   void editFontWeight(FontWeight value) {
     this.textWeight = value;
     this.textStyle = this.textStyle!.copyWith(fontWeight: value);
+    notifyListeners();
+  }
+
+  void editFontBackground(Color value) {
+    if (value == Colors.transparent) {
+      textBackground = 0;
+    } else {
+      textBackground = 1;
+    }
+    this.textStyle = this.textStyle!.copyWith(backgroundColor: value);
     notifyListeners();
   }
 
