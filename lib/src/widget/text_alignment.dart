@@ -5,9 +5,10 @@ import 'package:text_editor/src/text_style_model.dart';
 class TextAlignment extends StatelessWidget {
   final Widget? left;
   final Widget? center;
+  final Widget? justify;
   final Widget? right;
 
-  TextAlignment({this.left, this.center, this.right});
+  TextAlignment({this.left, this.center, this.justify, this.right});
 
   void _onChangeAlignment(TextStyleModel textStyleModel) {
     switch (textStyleModel.textAlign) {
@@ -15,6 +16,9 @@ class TextAlignment extends StatelessWidget {
         textStyleModel.editTextAlinment(TextAlign.center);
         break;
       case TextAlign.center:
+        textStyleModel.editTextAlinment(TextAlign.justify);
+        break;
+      case TextAlign.justify:
         textStyleModel.editTextAlinment(TextAlign.right);
         break;
       default:
@@ -28,6 +32,8 @@ class TextAlignment extends StatelessWidget {
         return left ?? Icon(Icons.format_align_left, color: Colors.white);
       case TextAlign.center:
         return center ?? Icon(Icons.format_align_center, color: Colors.white);
+      case TextAlign.justify:
+        return center ?? Icon(Icons.format_align_justify, color: Colors.white);
       default:
         return right ?? Icon(Icons.format_align_right, color: Colors.white);
     }

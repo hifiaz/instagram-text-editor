@@ -7,8 +7,23 @@ enum TextBackgroundColorStatus { enable, exchange, none }
 class TextBackgroundColor extends StatelessWidget {
   void _onChangeBackgroundWidget(TextStyleModel textStyleModel) {
     switch (textStyleModel.textBackground) {
-      case 0:
+      case 1:
         textStyleModel.editFontBackground(Colors.black);
+        break;
+      case 2:
+        textStyleModel.editFontBackground(Colors.white);
+        break;
+      case 3:
+        textStyleModel.editFontBackground(Colors.blue);
+        break;
+      case 4:
+        textStyleModel.editFontBackground(Colors.green);
+        break;
+      case 5:
+        textStyleModel.editFontBackground(Colors.yellow);
+        break;
+      case 6:
+        textStyleModel.editFontBackground(Colors.red);
         break;
       default:
         textStyleModel.editFontBackground(Colors.transparent);
@@ -17,15 +32,40 @@ class TextBackgroundColor extends StatelessWidget {
 
   Widget _mapTextBackgroundToWidget(int background) {
     switch (background) {
-      case 0:
+      case 1:
+        return Icon(
+          Icons.tonality,
+          color: Colors.black,
+        );
+      case 2:
         return Icon(
           Icons.tonality,
           color: Colors.white,
         );
+      case 3:
+        return Icon(
+          Icons.tonality,
+          color: Colors.blue,
+        );
+      case 4:
+        return Icon(
+          Icons.tonality,
+          color: Colors.green,
+        );
+      case 5:
+        return Icon(
+          Icons.tonality,
+          color: Colors.yellow,
+        );
+      case 6:
+        return Icon(
+          Icons.tonality,
+          color: Colors.red,
+        );
       default:
         return Icon(
           Icons.brightness_1,
-          color: Colors.black,
+          color: Colors.white,
         );
     }
   }
@@ -39,40 +79,4 @@ class TextBackgroundColor extends StatelessWidget {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       setState(() {
-  //         switch (_status) {
-  //           case TextBackgroundColorStatus.none:
-  //             _status = TextBackgroundColorStatus.enable;
-  //             break;
-  //           case TextBackgroundColorStatus.enable:
-  //             _status = TextBackgroundColorStatus.exchange;
-  //             break;
-  //           default:
-  //             _status = TextBackgroundColorStatus.none;
-  //         }
-  //       });
-  //     },
-  //     child: Container(
-  //       width: 25,
-  //       height: 25,
-  //       decoration: BoxDecoration(
-  //         color:
-  //             _status == TextBackgroundColorStatus.none ? null : Colors.white,
-  //         borderRadius: BorderRadius.circular(5),
-  //         border: Border.all(color: Colors.white, width: 1),
-  //       ),
-  //       child: Icon(
-  //         Icons.format_bold,
-  //         size: 20,
-  //         color: _status == TextBackgroundColorStatus.none
-  //             ? Colors.white
-  //             : Colors.black,
-  //       ),
-  //     ),
-  //   );
-  // }
 }

@@ -24,13 +24,17 @@ class TextStyleModel extends ChangeNotifier {
 
   void editTextColor(Color value) {
     this.textStyle = this.textStyle!.copyWith(color: value);
-
     notifyListeners();
   }
 
   void editFontSize(double value) {
     this.textStyle = this.textStyle!.copyWith(fontSize: value);
 
+    notifyListeners();
+  }
+
+  void editFontHeight(double value) {
+    this.textStyle = this.textStyle!.copyWith(height: value);
     notifyListeners();
   }
 
@@ -42,9 +46,21 @@ class TextStyleModel extends ChangeNotifier {
 
   void editFontBackground(Color value) {
     if (value == Colors.transparent) {
+      textBackground = 1;
+    } else if (value == Colors.black) {
+      textBackground = 2;
+    } else if (value == Colors.white) {
+      textBackground = 3;
+    } else if (value == Colors.blue) {
+      textBackground = 4;
+    } else if (value == Colors.green) {
+      textBackground = 5;
+    } else if (value == Colors.yellow) {
+      textBackground = 6;
+    } else if (value == Colors.red) {
       textBackground = 0;
     } else {
-      textBackground = 1;
+      textBackground = 0;
     }
     this.textStyle = this.textStyle!.copyWith(backgroundColor: value);
     notifyListeners();

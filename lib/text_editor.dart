@@ -6,6 +6,7 @@ import 'package:text_editor/src/font_option_model.dart';
 import 'package:text_editor/src/text_style_model.dart';
 import 'package:text_editor/src/widget/color_palette.dart';
 import 'package:text_editor/src/widget/font_family.dart';
+import 'package:text_editor/src/widget/font_height.dart';
 import 'package:text_editor/src/widget/font_option_switch.dart';
 import 'package:text_editor/src/widget/font_size.dart';
 import 'package:text_editor/src/widget/font_weight.dart';
@@ -57,6 +58,9 @@ class TextEditor extends StatefulWidget {
   final double? minFontSize;
   final double? maxFontSize;
 
+  final double? minFontHeight;
+  final double? maxFontHeight;
+
   /// Create a [TextEditor] widget
   ///
   /// [fonts] list of font families that you want to use in editor.
@@ -74,6 +78,8 @@ class TextEditor extends StatefulWidget {
     this.textAlingment,
     this.minFontSize = 1,
     this.maxFontSize = 100,
+    this.minFontHeight = 1,
+    this.maxFontHeight = 100,
     this.onTextAlignChanged,
     this.onTextStyleChanged,
     this.onTextChanged,
@@ -102,7 +108,7 @@ class _TextEditorState extends State<TextEditor> {
       widget.fonts,
       colors: widget.paletteColors,
     );
-    
+
     // Initialize decorator
     _doneButton = widget.decoration?.doneButton ??
         Text('Done', style: TextStyle(color: Colors.white));
@@ -174,6 +180,10 @@ class _TextEditorState extends State<TextEditor> {
                   ),
                 ),
               ],
+            ),
+            FontHeight(
+              minFontHeight: widget.minFontHeight!,
+              maxFontHeight: widget.maxFontHeight!,
             ),
             Expanded(
               child: Row(
