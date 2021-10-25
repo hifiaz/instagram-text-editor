@@ -60,7 +60,7 @@ class FontOptionModel extends ChangeNotifier {
     // Set default picked color
     // pickedColor = textStyleModel.textStyle?.color ?? colors![0];
     // Set new text color
-    textStyleModel.editTextColor(textStyleModel.textStyle?.color ?? colors![0]);
+    // textStyleModel.editTextColor(textStyleModel.textStyle?.color ?? colors![0]);
   }
 
   void selectFontFamily(String value) {
@@ -78,9 +78,6 @@ class FontOptionModel extends ChangeNotifier {
   // Set new text color
   void pickColor(Color value) => textStyleModel.editTextColor(value);
 
-  // Set text wight
-  void editWeight(FontWeight value) => textStyleModel.editFontWeight(value);
-  
   void changeFontOptionStatus(FontOptionStatus value) {
     status = value == FontOptionStatus.fontFamily
         ? FontOptionStatus.colorPalette
@@ -88,6 +85,4 @@ class FontOptionModel extends ChangeNotifier {
 
     notifyListeners();
   }
-
-
 }

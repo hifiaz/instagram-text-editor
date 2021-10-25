@@ -1,81 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:text_editor/src/text_style_model.dart';
 
-enum TextBackgroundColorStatus { enable, exchange, none }
+import '../text_style_model.dart';
 
 class TextBackgroundColor extends StatelessWidget {
-  void _onChangeBackgroundWidget(TextStyleModel textStyleModel) {
-    switch (textStyleModel.textBackground) {
-      case 1:
-        textStyleModel.editFontBackground(Colors.black);
-        break;
-      case 2:
-        textStyleModel.editFontBackground(Colors.white);
-        break;
-      case 3:
-        textStyleModel.editFontBackground(Colors.blue);
-        break;
-      case 4:
-        textStyleModel.editFontBackground(Colors.green);
-        break;
-      case 5:
-        textStyleModel.editFontBackground(Colors.yellow);
-        break;
-      case 6:
-        textStyleModel.editFontBackground(Colors.red);
-        break;
-      default:
-        textStyleModel.editFontBackground(Colors.transparent);
-    }
-  }
+  final Widget? enableWidget;
+  final Widget? disableWidget;
 
-  Widget _mapTextBackgroundToWidget(int background) {
-    switch (background) {
-      case 1:
-        return Icon(
-          Icons.tonality,
-          color: Colors.black,
-        );
-      case 2:
-        return Icon(
-          Icons.tonality,
-          color: Colors.white,
-        );
-      case 3:
-        return Icon(
-          Icons.tonality,
-          color: Colors.blue,
-        );
-      case 4:
-        return Icon(
-          Icons.tonality,
-          color: Colors.green,
-        );
-      case 5:
-        return Icon(
-          Icons.tonality,
-          color: Colors.yellow,
-        );
-      case 6:
-        return Icon(
-          Icons.tonality,
-          color: Colors.red,
-        );
-      default:
-        return Icon(
-          Icons.brightness_1,
-          color: Colors.white,
-        );
-    }
-  }
+  TextBackgroundColor({this.enableWidget, this.disableWidget});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TextStyleModel>(
       builder: (context, model, child) => GestureDetector(
-        onTapUp: (_) => _onChangeBackgroundWidget(model),
-        child: _mapTextBackgroundToWidget(model.textBackground!),
+        onTap: () => model.changeTextBackground(),
+        child: model.textBackgroundStatus != TextBackgroundStatus.disable
+            ? enableWidget ?? _SwitchButton(enabled: true)
+            : disableWidget ?? _SwitchButton(enabled: false),
+      ),
+    );
+  }
+}
+
+class _SwitchButton extends StatelessWidget {
+  final bool enabled;
+  const _SwitchButton({Key? key, this.enabled = false}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 25,
+      height: 25,
+      decoration: BoxDecoration(
+        color: !enabled ? null : Colors.white,
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Colors.white, width: 1),
+      ),
+      child: Icon(
+        Icons.format_bold,
+        size: 20,
+        color: !enabled ? Colors.white : Colors.black,
       ),
     );
   }

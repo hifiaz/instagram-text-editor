@@ -162,7 +162,11 @@ class _TextEditorState extends State<TextEditor> {
                         colorPaletteSwitch: widget.decoration?.colorPalette,
                       ),
                       SizedBox(width: 20),
-                      TextBackgroundColor()
+                      TextBackgroundColor(
+                        enableWidget: widget.decoration?.textBackground?.enable,
+                        disableWidget:
+                            widget.decoration?.textBackground?.disable,
+                      ),
                       // TextOptionBackground(
                       //   // fontFamilySwitch: widget.decoration?.fontFamily,
                       //   colorPaletteSwitch: widget.decoration?.colorPalette,
@@ -262,6 +266,19 @@ class WeightDecoration {
   WeightDecoration({this.bold, this.normal});
 }
 
+/// Decoration to customize text background widgets' design.
+///
+/// Pass your custom widget to `enable`, and `disable` to customize their design
+class TextBackgroundDecoration {
+  /// Enabled text background widget
+  final Widget? enable;
+
+  /// Disabled text background widget
+  final Widget? disable;
+
+  TextBackgroundDecoration({this.enable, this.disable});
+}
+
 /// Decoration to customize the editor
 ///
 /// By using this class, you can customize the text editor's design
@@ -270,6 +287,9 @@ class EditorDecoration {
   final Widget? doneButton;
   final AlignmentDecoration? alignment;
   final WeightDecoration? weight;
+
+  /// Text background widget
+  final TextBackgroundDecoration? textBackground;
 
   /// Font family switch widget
   final Widget? fontFamily;
@@ -283,5 +303,6 @@ class EditorDecoration {
     this.weight,
     this.fontFamily,
     this.colorPalette,
+    this.textBackground,
   });
 }
